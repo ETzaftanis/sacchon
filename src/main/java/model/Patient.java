@@ -17,7 +17,6 @@ public class Patient extends User {
     private int age;
     private String sex;
     private Date dateRegistered;
-    private String role = "patient";
     private boolean consultationChanged = false;
     private Date recentConsultation;
     private Date recentCarb;
@@ -32,4 +31,7 @@ public class Patient extends User {
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Consultation> consultationList;
 
+    public Patient() {
+        super("patient");
+    }
 }

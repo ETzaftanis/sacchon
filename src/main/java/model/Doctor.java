@@ -14,7 +14,6 @@ public class Doctor extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String role = "doctor";
     private Date recentConsultation;
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -22,4 +21,7 @@ public class Doctor extends User {
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Patient> patientList;
 
+    public Doctor() {
+        super("doctor");
+    }
 }
