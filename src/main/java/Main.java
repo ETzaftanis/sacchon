@@ -29,7 +29,6 @@ public class Main extends Application {
         LOGGER.info("sample web api started");
         LOGGER.info("URl: http://localhost:9000/v1/ping");
 
-
     }
 
     public Restlet createInboundRoot() {

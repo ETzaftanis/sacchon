@@ -12,7 +12,6 @@ public abstract class Repository<T, K> {
         this.entityManager = entityManager;
     }
 
-    //Create , insert
     public T save(T t) {
         try {
             entityManager.getTransaction().begin();
@@ -40,6 +39,7 @@ public abstract class Repository<T, K> {
         }
     }
 
+    //TODO add pagination int pagesize pageNumber / create another method
     public List<T> findAll() {
         try {
             return entityManager.createQuery("from " + getClassName()).getResultList();
@@ -48,8 +48,6 @@ public abstract class Repository<T, K> {
         }
     }
 
-
-    // Update
     public T update(T t) {
         try {
             entityManager.getTransaction().begin();
@@ -63,8 +61,6 @@ public abstract class Repository<T, K> {
     }
     //Verify
 
-
-    // Delete
     public boolean delete(K id) {
         T t = read(id);
         if (t == null) {
@@ -79,6 +75,5 @@ public abstract class Repository<T, K> {
             return false;
         }
     }
-
 
 }

@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 @Entity
 public class Glucose {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

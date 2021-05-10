@@ -9,13 +9,11 @@ import resource.patient.*;
 
 public class CustomRouter {
 
-
     private Application application;
 
     public CustomRouter(Application application) {
         this.application = application;
     }
-
 
     public Router publicResources() {
         Router router = new Router();
@@ -23,13 +21,10 @@ public class CustomRouter {
         router.attach("/login", LogInResource.class);
 
         router.attach("/register", registerResource.class);
-        router.attach("/chiefDoctor", ChiefDoctorListResource.class);
-        router.attach("/chiefDoctor/{id}", ChiefDoctorResource.class);
-
 
         return router;
-    }
 
+    }
 
     public Router protectedResources() {
         Router router = new Router();
@@ -46,7 +41,6 @@ public class CustomRouter {
         router.attach("/patientCarbAverage/{patientId}", PatientCarbAverageResource.class);
         router.attach("/patientGlucoseAverage/{patientId}", PatientGlucoseAverageResource.class); //get
 
-
         //Doctor
         router.attach("/doctor/{doctorId}/patient/", DoctorPatientListResource.class);
         router.attach("/doctor/{doctorId}/patient/{patientId}", DoctorPatientResource.class);
@@ -62,8 +56,9 @@ public class CustomRouter {
         router.attach("/doctor/{doctorId}/consultation/", DoctorConsultationListResource.class);// put
         router.attach("/doctor/{doctorId}/consultation/{consultationId}", DoctorConsultationResource.class);
 
-
         //ChiefDoctor
+        router.attach("/chiefDoctor", ChiefDoctorListResource.class);
+        router.attach("/chiefDoctor/{id}", ChiefDoctorResource.class);
         router.attach("/patient", PatientListResource.class);
         router.attach("/patient/{id}", PatientResource.class);
         router.attach("/doctor", DoctorListResource.class);
@@ -86,6 +81,4 @@ public class CustomRouter {
 
         return router;
     }
-
-
 }

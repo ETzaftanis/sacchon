@@ -10,11 +10,11 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class ChiefDoctor extends User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String role = "chiefDoctor";
-
 
 }
 

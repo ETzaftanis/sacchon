@@ -14,6 +14,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class CarbRepresentation {
+
     private long id;
     private double carb;
     private Date date;
@@ -48,7 +49,6 @@ public class CarbRepresentation {
             carb.setDate(date);
         }
         carb.setSimpleDate(carbRepository.getSimpleDate(carb.getDate()));
-
 
         PatientRepository patientRepository = new PatientRepository(em);
         carb.setPatient(patientRepository.read(patientId));

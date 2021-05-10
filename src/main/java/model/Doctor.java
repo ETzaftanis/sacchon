@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 @Entity
 public class Doctor extends User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 @Entity
 public class Patient extends User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,6 +31,5 @@ public class Patient extends User {
     private List<Glucose> glucoseList;
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Consultation> consultationList;
-
 
 }

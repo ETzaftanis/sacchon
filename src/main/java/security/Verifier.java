@@ -20,6 +20,7 @@ public class Verifier extends SecretVerifier {
 
         PatientRepository patientRepository = new PatientRepository(em);
         Patient patient = patientRepository.getByUsername(username);
+
         if (patient != null) {
             if (patient.getUsername().equals(username)) {
                 String passwordInDb = patient.getPassword();
@@ -32,8 +33,10 @@ public class Verifier extends SecretVerifier {
                 }
             }
         }
+
         DoctorRepository doctorRepository = new DoctorRepository(em);
         Doctor doctor = doctorRepository.getByUsername(username);
+
         if (doctor != null) {
             if (doctor.getUsername().equals(username)) {
                 String passwordInDb = doctor.getPassword();
@@ -49,6 +52,7 @@ public class Verifier extends SecretVerifier {
 
         ChiefDoctorRepository chiefDoctorRepository = new ChiefDoctorRepository(em);
         ChiefDoctor chiefDoctor = chiefDoctorRepository.getByUsername(username);
+
         if (chiefDoctor != null) {
             if (chiefDoctor.getUsername().equals(username)) {
                 String passwordInDb = chiefDoctor.getPassword();
@@ -61,7 +65,9 @@ public class Verifier extends SecretVerifier {
                 }
             }
         }
+
         em.close();
         return SecretVerifier.RESULT_INVALID;
+
     }
 }
