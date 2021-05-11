@@ -35,7 +35,6 @@ public abstract class Repository<T, K> {
 
     public abstract String getClassName();
 
-    // Read select
     public T read(K id) {
         try {
             T t = entityManager.find(getEntityClass(), id);
@@ -45,7 +44,6 @@ public abstract class Repository<T, K> {
         }
     }
 
-    //TODO add pagination int pagesize pageNumber / create another method
     public List<T> findAll() {
         try {
             return entityManager.createQuery("from " + getClassName()).getResultList();
@@ -78,7 +76,6 @@ public abstract class Repository<T, K> {
         }
         return null;
     }
-    //Verify
 
     public boolean delete(K id) {
         T t = read(id);
