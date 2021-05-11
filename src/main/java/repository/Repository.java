@@ -28,7 +28,7 @@ public abstract class Repository<T, K> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new T();
+        return null;
     }
 
     public abstract Class<T> getEntityClass();
