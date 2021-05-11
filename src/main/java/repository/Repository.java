@@ -1,14 +1,18 @@
 package repository;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.restlet.engine.Engine;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class Repository<T, K> {
     private EntityManager entityManager;
+
+    public static final Logger LOGGER = Engine.getLogger(Repository.class);
 
     public Repository(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -44,9 +48,9 @@ public abstract class Repository<T, K> {
     //TODO add pagination int pagesize pageNumber / create another method
     public List<T> findAll() {
         try {
-
             return entityManager.createQuery("from " + getClassName()).getResultList();
         } catch (Exception e) {
+            LOGGER.info("no record found" + e.getMessage());
             return new ArrayList<>();
         }
     }
@@ -58,6 +62,7 @@ public abstract class Repository<T, K> {
             query.setMaxResults(pageSize);
             return query.getResultList();
         } catch (Exception e) {
+            LOGGER.info("no record found" + e.getMessage());
             return new ArrayList<>();
         }
     }
