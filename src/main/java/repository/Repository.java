@@ -3,6 +3,8 @@ package repository;
 import org.hibernate.exception.ConstraintViolationException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Repository<T, K> {
@@ -22,7 +24,7 @@ public abstract class Repository<T, K> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return new T();
     }
 
     public abstract Class<T> getEntityClass();
@@ -42,9 +44,21 @@ public abstract class Repository<T, K> {
     //TODO add pagination int pagesize pageNumber / create another method
     public List<T> findAll() {
         try {
+
             return entityManager.createQuery("from " + getClassName()).getResultList();
         } catch (Exception e) {
-            return null;
+            return new ArrayList<>();
+        }
+    }
+
+    public List<T> findAll(int pageSize, int pageNumber) {
+        try {
+            Query query = entityManager.createQuery("from " + getClassName());
+            query.setFirstResult((pageNumber - 1) * pageSize);
+            query.setMaxResults(pageSize);
+            return query.getResultList();
+        } catch (Exception e) {
+            return new ArrayList<>();
         }
     }
 
