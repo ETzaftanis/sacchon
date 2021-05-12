@@ -1,21 +1,19 @@
 package resource.patient;
 
 import exception.AuthorizationException;
-import jpaUtil.JpaUtil;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
-import repository.PatientRepository;
 import resource.ResourceUtils;
 import security.Shield;
+import service.PatientGlucoseAverageResourceService;
 
-import javax.persistence.EntityManager;
-import java.util.Date;
-
+/**
+ * Restful interface of {@link PatientGlucoseAverageResourceService}
+ */
 public class PatientGlucoseAverageResource extends ServerResource {
     private long patientId;
 
     protected void doInit() {
-
         patientId = Long.parseLong(getAttribute("patientId"));
     }
 
@@ -24,15 +22,6 @@ public class PatientGlucoseAverageResource extends ServerResource {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         String start = getQueryValue("start");
         String end = getQueryValue("end");
-        Date dateStart = ResourceUtils.stringToDate(start, -1);
-        Date dateEnd = ResourceUtils.stringToDate(end, 1);
-
-        EntityManager em = JpaUtil.getEntityManager();
-
-        PatientRepository patientRepository = new PatientRepository(em);
-        Double glucose = patientRepository.getGlucoseAverage(this.patientId, dateStart, dateEnd);
-
-        em.close();
-        return glucose;
+        return PatientGlucoseAverageResourceService.getAverageGlucose(patientId, start, end);
     }
 }
