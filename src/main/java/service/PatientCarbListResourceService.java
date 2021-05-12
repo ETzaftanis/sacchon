@@ -13,11 +13,11 @@ import java.util.List;
 
 public class PatientCarbListResourceService {
 
-    public static List<CarbRepresentation> getCarbList(long id) {
+    public static List<CarbRepresentation> getCarbList(long patientId) {
         EntityManager em = JpaUtil.getEntityManager();
 
         PatientRepository patientRepository = new PatientRepository(em);
-        List<Carb> carbList = patientRepository.getCarbList(id);
+        List<Carb> carbList = patientRepository.getCarbList(patientId);
         List<CarbRepresentation> carbRepresentationList = new ArrayList<>();
 
         for (Carb c : carbList) {
@@ -28,10 +28,10 @@ public class PatientCarbListResourceService {
         return carbRepresentationList;
     }
 
-    public static CarbRepresentation getCarbRepresentation(CarbRepresentation carbRepresentationIn, long id) {
+    public static CarbRepresentation getCarbRepresentation(CarbRepresentation carbRepresentationIn, long patientId) {
         if (carbRepresentationIn == null) return null;
 
-        carbRepresentationIn.setPatientId(id);
+        carbRepresentationIn.setPatientId(patientId);
         Carb carb = carbRepresentationIn.createCarb();
         EntityManager em = JpaUtil.getEntityManager();
         CarbRepository carbRepository = new CarbRepository(em);
@@ -39,7 +39,7 @@ public class PatientCarbListResourceService {
         CarbRepresentation c = new CarbRepresentation(carb);
 
         PatientRepository patientRepository = new PatientRepository(em);
-        Patient patient = patientRepository.read(id);
+        Patient patient = patientRepository.read(patientId);
 
         em.detach(patient);
         patient.setRecentCarb(carb.getDate());

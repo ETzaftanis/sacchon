@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class PatientCarbAverageResourceService {
 
-    public static Double getAverageCarb(long id, String start, String end) {
+    public static Double getAverageCarb(long patientId, String start, String end) {
 
         Date dateStart = ResourceUtils.stringToDate(start, -1);
         Date dateEnd = ResourceUtils.stringToDate(end, 1);
@@ -17,7 +17,7 @@ public class PatientCarbAverageResourceService {
         EntityManager em = JpaUtil.getEntityManager();
 
         PatientRepository patientRepository = new PatientRepository(em);
-        Double carb = patientRepository.getCarbAverage(id, dateStart, dateEnd);
+        Double carb = patientRepository.getCarbAverage(patientId, dateStart, dateEnd);
 
         em.close();
         return carb;

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PatientCarbDailyAverageResourceService {
 
-    public static List<Double> getAverageCarb(long id, String start, String end) {
+    public static List<Double> getAverageCarb(long patientId, String start, String end) {
 
         Date dateStart = ResourceUtils.stringToDate(start, -1);
         Date dateEnd = ResourceUtils.stringToDate(end, 1);
@@ -18,7 +18,7 @@ public class PatientCarbDailyAverageResourceService {
         EntityManager em = JpaUtil.getEntityManager();
 
         PatientRepository patientRepository = new PatientRepository(em);
-        List<Double> carbList = patientRepository.getCarbAverageList(id, dateStart, dateEnd);
+        List<Double> carbList = patientRepository.getCarbAverageList(patientId, dateStart, dateEnd);
 
         em.close();
         return carbList;

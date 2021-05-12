@@ -20,28 +20,28 @@ public class PatientSettingsResource extends ServerResource {
 
     public static final Logger LOGGER = Engine.getLogger(PatientSettingsResource.class);
 
-    private long id;
+    private long patientId;
 
     protected void doInit() {
-        id = Long.parseLong(getAttribute("id"));
+        patientId = Long.parseLong(getAttribute("id"));
     }
 
     @Get("json")
     public PatientRepresentation getPatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        return PatientSettingsResourceService.getPatient(id);
+        return PatientSettingsResourceService.getPatient(patientId);
     }
 
     @Put("json")
     public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        return PatientSettingsResourceService.updatePatient(patientRepresentation, id);
+        return PatientSettingsResourceService.updatePatient(patientRepresentation, patientId);
     }
 
     @Delete("json")
     public void deletePatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        PatientSettingsResourceService.deletePatient(id);
+        PatientSettingsResourceService.deletePatient(patientId);
     }
 
 }

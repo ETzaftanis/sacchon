@@ -14,11 +14,11 @@ import java.util.List;
  * Restful interface of {@link PatientCarbDailyAverageResourceService}
  */
 public class PatientCarbDailyAverageResource extends ServerResource {
-    private long id;
+    private long patientId;
 
     protected void doInit() {
 
-        id = Long.parseLong(getAttribute("patientId"));
+        patientId = Long.parseLong(getAttribute("patientId"));
     }
 
     @Get
@@ -26,7 +26,7 @@ public class PatientCarbDailyAverageResource extends ServerResource {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         String start = getQueryValue("start");
         String end = getQueryValue("end");
-        return PatientCarbDailyAverageResourceService.getAverageCarb(id, start, end);
+        return PatientCarbDailyAverageResourceService.getAverageCarb(patientId, start, end);
     }
 
 }

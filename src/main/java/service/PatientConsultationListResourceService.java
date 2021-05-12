@@ -12,11 +12,11 @@ import java.util.List;
 
 public class PatientConsultationListResourceService {
 
-    public static List<ConsultationRepresentation> getConsultationLIst(long id) {
+    public static List<ConsultationRepresentation> getConsultationLIst(long patientId) {
         EntityManager em = JpaUtil.getEntityManager();
 
         PatientRepository patientRepository = new PatientRepository(em);
-        List<Consultation> consultationList = patientRepository.getConsultationList(this.patientId);
+        List<Consultation> consultationList = patientRepository.getConsultationList(patientId);
         List<ConsultationRepresentation> consultationRepresentationList = new ArrayList<>();
 
         for (Consultation c : consultationList) {

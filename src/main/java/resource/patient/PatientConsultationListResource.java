@@ -7,7 +7,6 @@ import org.restlet.resource.ServerResource;
 import representation.ConsultationRepresentation;
 import resource.ResourceUtils;
 import security.Shield;
-import service.PatientCarbAverageResourceService;
 import service.PatientConsultationListResourceService;
 
 import java.util.List;
@@ -15,21 +14,21 @@ import java.util.List;
  * Restful interface of {@link PatientConsultationListResourceService}
  */
 public class PatientConsultationListResource extends ServerResource {
-    private long id;
+    private long patientId;
 
     protected void doInit() {
-        id = Long.parseLong(getAttribute("patientId"));
+        patientId = Long.parseLong(getAttribute("patientId"));
     }
 
     @Get("json")
     public List<ConsultationRepresentation> getConsultationList() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        return PatientConsultationListResourceService.getConsultationLIst(id);
+        return PatientConsultationListResourceService.getConsultationLIst(patientId);
     }
 
     @Post("json")
     public ConsultationRepresentation add(ConsultationRepresentation consultationRepresentationIn) throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        return PatientConsultationListResourceService.add(consultationRepresentationIn, id);
+        return PatientConsultationListResourceService.add(consultationRepresentationIn, patientId);
     }
 }

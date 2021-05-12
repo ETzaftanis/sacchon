@@ -12,10 +12,10 @@ import service.PatientCarbAverageResourceService;
  * Restful interface of {@link PatientCarbAverageResourceService}
  */
 public class PatientCarbAverageResource extends ServerResource {
-    private long id;
+    private long patientId;
 
     protected void doInit() {
-        id = Long.parseLong(getAttribute("patientId"));
+        patientId = Long.parseLong(getAttribute("patientId"));
     }
 
     @Get
@@ -25,6 +25,6 @@ public class PatientCarbAverageResource extends ServerResource {
         String start = getQueryValue("start");
         String end = getQueryValue("end");
 
-        return PatientCarbAverageResourceService.getAverageCarb(id, start, end);
+        return PatientCarbAverageResourceService.getAverageCarb(patientId, start, end);
     }
 }

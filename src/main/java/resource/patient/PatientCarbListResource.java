@@ -12,22 +12,22 @@ import service.PatientCarbListResourceService;
 import java.util.List;
 
 public class PatientCarbListResource extends ServerResource {
-    private long id;
+    private long patientId;
 
     protected void doInit() {
-        id = Long.parseLong(getAttribute("patientId"));
+        patientId = Long.parseLong(getAttribute("patientId"));
     }
 
     @Get("json")
     public List<CarbRepresentation> getCarbList() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        return PatientCarbListResourceService.getCarbList(id);
+        return PatientCarbListResourceService.getCarbList(patientId);
     }
 
     @Post("json")
     public CarbRepresentation addCarb(CarbRepresentation carbRepresentationIn) throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        return PatientCarbListResourceService.getCarbRepresentation(carbRepresentationIn, id);
+        return PatientCarbListResourceService.getCarbRepresentation(carbRepresentationIn, patientId);
     }
 
 }
