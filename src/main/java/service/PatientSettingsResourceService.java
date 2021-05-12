@@ -9,8 +9,7 @@ import javax.persistence.EntityManager;
 
 public class PatientSettingsResourceService {
 
-
-    public void updatePatient(PatientRepresentation patientRepresentation, long id) {
+    public static PatientRepresentation updatePatient(PatientRepresentation patientRepresentation, long id) {
         EntityManager em = JpaUtil.getEntityManager();
         PatientRepository patientRepository = new PatientRepository(em);
         Patient patient = patientRepresentation.createPatient();
@@ -19,9 +18,10 @@ public class PatientSettingsResourceService {
         patient.setId(id);
         patient.setDateRegistered(oldPatient.getDateRegistered());
         patientRepository.update(patient);
+        return patientRepresentation;
     }
 
-    public PatientRepresentation getPatient(long id) {
+    public static PatientRepresentation getPatient(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         PatientRepository patientRepository = new PatientRepository(em);
         Patient patient = patientRepository.read(id);
@@ -30,7 +30,7 @@ public class PatientSettingsResourceService {
         return patientRepresentation;
     }
 
-    public void deletePatient(long id) {
+    public static void deletePatient(long id) {
         EntityManager em = JpaUtil.getEntityManager();
         PatientRepository patientRepository = new PatientRepository(em);
         patientRepository.delete(patientRepository.read(id).getId());

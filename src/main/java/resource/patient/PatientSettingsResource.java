@@ -10,8 +10,6 @@ import resource.ResourceUtils;
 import security.Shield;
 import service.PatientSettingsResourceService;
 
-import java.util.Objects;
-
 public class PatientSettingsResource extends ServerResource {
     private long id;
 
@@ -19,38 +17,25 @@ public class PatientSettingsResource extends ServerResource {
         id = Long.parseLong(getAttribute("id"));
     }
 
-    private PatientSettingsResourceService patientSettingsResourceService;
-
-    public PatientSettingsResource(PatientSettingsResourceService patientSettingsResourceService) {
-        this.setService(patientSettingsResourceService);
-    }
-
-    private void setService(PatientSettingsResourceService patientSettingsResourceService) {
-        Objects.requireNonNull(patientSettingsResourceService, "patient setting service can't be null");
-        this.patientSettingsResourceService = patientSettingsResourceService;
-    }
-
     @Get("json")
     public PatientRepresentation getPatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
-        return patientSettingsResourceService.getPatient(id);
+        return PatientSettingsResourceService.getPatient(id);
     }
 
     @Put("json")
     public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
-        patientSettingsResourceService.updatePatient(patientRepresentation, id);
-
-        return patientRepresentation;
+        return PatientSettingsResourceService.updatePatient(patientRepresentation, id);
     }
 
     @Delete("json")
     public void deletePatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
-        patientSettingsResourceService.deletePatient(id);
+        PatientSettingsResourceService.deletePatient(id);
     }
 
 }

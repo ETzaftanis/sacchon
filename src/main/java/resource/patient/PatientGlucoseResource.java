@@ -25,7 +25,6 @@ public class PatientGlucoseResource extends ServerResource {
         glucoseId = Long.parseLong(getAttribute("glucoseId"));
     }
 
-
     @Get("json")
     public GlucoseRepresentation getGlucose() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
