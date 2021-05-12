@@ -49,11 +49,12 @@ public abstract class Repository<T, K> {
             return entityManager.createQuery("from " + getClassName()).getResultList();
         } catch (Exception e) {
             LOGGER.info("no record found" + e.getMessage());
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
-    public List<T> findAll(int pageSize, int pageNumber) {
+    public List<T> findByPage(int pageSize, int pageNumber) {
         try {
             Query query = entityManager.createQuery("from " + getClassName());
             query.setFirstResult((pageNumber - 1) * pageSize);
@@ -61,6 +62,7 @@ public abstract class Repository<T, K> {
             return query.getResultList();
         } catch (Exception e) {
             LOGGER.info("no record found" + e.getMessage());
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -88,6 +90,7 @@ public abstract class Repository<T, K> {
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
+            LOGGER.info("The deletion couldn't take place" + e.getMessage());
             return false;
         }
     }

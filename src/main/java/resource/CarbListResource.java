@@ -16,13 +16,14 @@ import java.util.Date;
 import java.util.List;
 
 public class CarbListResource extends ServerResource {
-    @Get("json")
-    public List<CarbRepresentation> getCarb() throws AuthorizationException {
 
-        ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
+    @Get("json")
+    public List<CarbRepresentation> getCarb() {
+
         EntityManager em = JpaUtil.getEntityManager();
         CarbRepository carbRepository = new CarbRepository(em);
-        List<Carb> carbs = carbRepository.findAll();
+        List<Carb> carbs = carbRepository.findByPage(5, 1);
+
         em.close();
 
         List<CarbRepresentation> carbRepresentationList = new ArrayList<>();
@@ -46,7 +47,8 @@ public class CarbListResource extends ServerResource {
 
         CarbRepository carbRepository = new CarbRepository(em);
         carbRepository.save(carb);
-        CarbRepresentation p = new CarbRepresentation(carb);
-        return p;
+        CarbRepresentation carbRepresentation = new CarbRepresentation(carb);
+
+        return carbRepresentation;
     }
 }
