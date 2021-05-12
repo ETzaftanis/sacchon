@@ -8,8 +8,13 @@ import org.restlet.resource.ServerResource;
 import representation.CarbRepresentation;
 import resource.ResourceUtils;
 import security.Shield;
+import service.PatientCarbListResourceService;
 import service.PatientCarbResourceService;
 
+
+/**
+ * Restful interface of {@link PatientCarbResourceService}
+ */
 public class PatientCarbResource extends ServerResource {
     private long patientId;
     private long carbId;

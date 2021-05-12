@@ -7,10 +7,15 @@ import org.restlet.resource.ServerResource;
 import representation.CarbRepresentation;
 import resource.ResourceUtils;
 import security.Shield;
+import service.PatientCarbDailyAverageResourceService;
 import service.PatientCarbListResourceService;
 
 import java.util.List;
 
+
+/**
+ * Restful interface of {@link PatientCarbListResourceService}
+ */
 public class PatientCarbListResource extends ServerResource {
     private long patientId;
 
