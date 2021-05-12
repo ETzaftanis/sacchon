@@ -7,6 +7,10 @@ import resource.ResourceUtils;
 import security.Shield;
 import service.PatientCarbAverageResourceService;
 
+
+/**
+ * Restful interface of {@link PatientCarbAverageResourceService}
+ */
 public class PatientCarbAverageResource extends ServerResource {
     private long id;
 

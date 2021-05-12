@@ -1,6 +1,7 @@
 package resource.patient;
 
 import exception.AuthorizationException;
+import org.restlet.engine.Engine;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Put;
@@ -10,7 +11,15 @@ import resource.ResourceUtils;
 import security.Shield;
 import service.PatientSettingsResourceService;
 
+import java.util.logging.Logger;
+
+/**
+ * Restful interface of {@link PatientSettingsResourceService}
+ */
 public class PatientSettingsResource extends ServerResource {
+
+    public static final Logger LOGGER = Engine.getLogger(PatientSettingsResource.class);
+
     private long id;
 
     protected void doInit() {
@@ -20,21 +29,18 @@ public class PatientSettingsResource extends ServerResource {
     @Get("json")
     public PatientRepresentation getPatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-
         return PatientSettingsResourceService.getPatient(id);
     }
 
     @Put("json")
     public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-
         return PatientSettingsResourceService.updatePatient(patientRepresentation, id);
     }
 
     @Delete("json")
     public void deletePatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-
         PatientSettingsResourceService.deletePatient(id);
     }
 

@@ -11,7 +11,7 @@ import representation.PatientRepresentation;
 import javax.persistence.EntityManager;
 import java.util.Date;
 
-public class registerResource extends ServerResource {
+public class RegisterResource extends ServerResource {
 
 
     @Post("json")
