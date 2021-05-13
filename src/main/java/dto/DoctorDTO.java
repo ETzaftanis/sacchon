@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class DoctorDTO {
+public class DoctorDTO extends UserDTO {
 
     private long id;
     private Date recentConsultation;
