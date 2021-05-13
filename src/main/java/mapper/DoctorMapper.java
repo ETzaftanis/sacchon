@@ -20,11 +20,11 @@ public class DoctorMapper {
         return doctorRepository
                 .findAll()
                 .stream()
-                .map(this::convertToDoctorDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    private DoctorDTO convertToDoctorDTO(Doctor doctor) {
+    private DoctorDTO convertToDTO(Doctor doctor) {
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
         return modelMapper

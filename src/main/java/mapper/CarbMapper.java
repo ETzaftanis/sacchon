@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import repository.CarbRepository;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,10 @@ public class CarbMapper {
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
         return modelMapper
                 .map(carb, CarbDTO.class);
+    }
+
+    private Carb convertToEntity(CarbDTO carbDTO) throws ParseException {
+        return modelMapper.map(carbDTO, Carb.class);
     }
 
 }
