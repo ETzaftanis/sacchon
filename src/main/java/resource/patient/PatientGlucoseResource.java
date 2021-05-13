@@ -41,9 +41,14 @@ public class PatientGlucoseResource extends ServerResource {
 
     @Put("json")
     public GlucoseRepresentation updateGlucose(GlucoseRepresentation glucoseRepresentationIn) throws AuthorizationException {
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        PatientGlucoseResourceService.update(glucoseRepresentationIn, patientId);
-        return glucoseRepresentationIn;
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+            PatientGlucoseResourceService.update(glucoseRepresentationIn, patientId);
+            return glucoseRepresentationIn;
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+            throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST, "Error While Checking Role");
+        }
     }
 
     @Delete("json")
