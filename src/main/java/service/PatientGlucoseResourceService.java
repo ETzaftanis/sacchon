@@ -26,8 +26,8 @@ public class PatientGlucoseResourceService {
         return glucoseRepresentation;
     }
 
-    public static GlucoseRepresentation update(GlucoseRepresentation glucoseRepresentationIn,long glucoseId) {
-        if (glucoseRepresentationIn == null) return new GlucoseRepresentation() ;
+    public static GlucoseRepresentation update(GlucoseRepresentation glucoseRepresentationIn, long glucoseId) {
+        if (glucoseRepresentationIn == null) return new GlucoseRepresentation();
 
         EntityManager em = JpaUtil.getEntityManager();
         GlucoseRepository glucoseRepository = new GlucoseRepository(em);
@@ -38,5 +38,11 @@ public class PatientGlucoseResourceService {
         glucose.setId(glucoseId);
         glucoseRepository.update(glucose);
         return glucoseRepresentationIn;
+    }
+
+    public static void delete(long glucoseId) {
+        EntityManager em = JpaUtil.getEntityManager();
+        GlucoseRepository glucoseRepository = new GlucoseRepository(em);
+        glucoseRepository.delete(glucoseRepository.read(glucoseId).getId());
     }
 }

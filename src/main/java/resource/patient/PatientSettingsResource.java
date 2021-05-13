@@ -1,11 +1,9 @@
 package resource.patient;
 
 import exception.AuthorizationException;
+import org.restlet.data.Status;
 import org.restlet.engine.Engine;
-import org.restlet.resource.Delete;
-import org.restlet.resource.Get;
-import org.restlet.resource.Put;
-import org.restlet.resource.ServerResource;
+import org.restlet.resource.*;
 import representation.PatientRepresentation;
 import resource.ResourceUtils;
 import security.Shield;
@@ -28,20 +26,35 @@ public class PatientSettingsResource extends ServerResource {
 
     @Get("json")
     public PatientRepresentation getPatient() throws AuthorizationException {
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        return PatientSettingsResourceService.getPatient(patientId);
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+            return PatientSettingsResourceService.getPatient(patientId);
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+            throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST, "Error While Checking Role");
+        }
     }
 
     @Put("json")
     public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws AuthorizationException {
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        return PatientSettingsResourceService.updatePatient(patientRepresentation, patientId);
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+            return PatientSettingsResourceService.updatePatient(patientRepresentation, patientId);
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+            throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST, "Error While Checking Role");
+        }
     }
 
     @Delete("json")
     public void deletePatient() throws AuthorizationException {
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        PatientSettingsResourceService.deletePatient(patientId);
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+            PatientSettingsResourceService.deletePatient(patientId);
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+            throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST, "Error While Checking Role");
+        }
     }
 
 }

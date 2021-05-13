@@ -1,17 +1,14 @@
 package resource.patient;
 
 import exception.AuthorizationException;
-import jpaUtil.JpaUtil;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.*;
-import repository.GlucoseRepository;
 import representation.GlucoseRepresentation;
 import resource.ResourceUtils;
 import security.Shield;
 import service.PatientGlucoseResourceService;
 
-import javax.persistence.EntityManager;
 import java.util.logging.Logger;
 
 /**
@@ -40,7 +37,7 @@ public class PatientGlucoseResource extends ServerResource {
     }
 
     @Put("json")
-    public GlucoseRepresentation updateGlucose(GlucoseRepresentation glucoseRepresentationIn) throws AuthorizationException {
+    public GlucoseRepresentation updateGlucose(GlucoseRepresentation glucoseRepresentationIn) {
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
             PatientGlucoseResourceService.update(glucoseRepresentationIn, patientId);
@@ -52,10 +49,15 @@ public class PatientGlucoseResource extends ServerResource {
     }
 
     @Delete("json")
-    public void deleteGlucose() throws AuthorizationException {
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        EntityManager em = JpaUtil.getEntityManager();//TODO
-        GlucoseRepository glucoseRepository = new GlucoseRepository(em);
-        glucoseRepository.delete(glucoseRepository.read(glucoseId).getId());
+    public void deleteGlucose() {
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+            PatientGlucoseResourceService.delete(glucoseId);
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+            throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST, "Error While Checking Role");
+        }
     }
+
+
 }
