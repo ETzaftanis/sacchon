@@ -5,7 +5,7 @@ import org.restlet.engine.Engine;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -48,9 +48,8 @@ public abstract class Repository<T, K> {
         try {
             return entityManager.createQuery("from " + getClassName()).getResultList();
         } catch (Exception e) {
-            LOGGER.info("no record found" + e.getMessage());
-            e.printStackTrace();
-            return new ArrayList<>();
+            LOGGER.severe("no record found" + e.getMessage());
+            return Collections.emptyList();
         }
     }
 
@@ -61,9 +60,8 @@ public abstract class Repository<T, K> {
             query.setMaxResults(pageSize);
             return query.getResultList();
         } catch (Exception e) {
-            LOGGER.info("no record found" + e.getMessage());
-            e.printStackTrace();
-            return new ArrayList<>();
+            LOGGER.severe("no record found" + e.getMessage());
+            return Collections.emptyList();
         }
     }
 
