@@ -18,16 +18,16 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception {
 
-        EntityManager em = JpaUtil.getEntityManager();
-        LOGGER.info("Sacchon app starting");
-        em.close();
+//        EntityManager em = JpaUtil.getEntityManager();
+//        LOGGER.info("Sacchon app starting");
+//        em.close();
         Component c = new Component();
-        c.getServers().add(Protocol.HTTP, 9000);
+        c.getServers().add(Protocol.HTTP, 8080);
         c.getDefaultHost().attach("/v1", new Main());
         c.start();
 
         LOGGER.info("sample web api started");
-        LOGGER.info("URl: http://localhost:9000/v1/ping");
+        LOGGER.info("URl: http://localhost:8080/v1/ping");
 
     }
 
