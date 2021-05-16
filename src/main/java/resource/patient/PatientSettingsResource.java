@@ -1,6 +1,5 @@
 package resource.patient;
 
-import exception.AuthorizationException;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.*;
@@ -25,7 +24,7 @@ public class PatientSettingsResource extends ServerResource {
     }
 
     @Get("json")
-    public PatientRepresentation getPatient() throws AuthorizationException {
+    public PatientRepresentation getPatient() {
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
             return PatientSettingsResourceService.getPatient(patientId);
@@ -36,7 +35,7 @@ public class PatientSettingsResource extends ServerResource {
     }
 
     @Put("json")
-    public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws AuthorizationException {
+    public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) {
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
             return PatientSettingsResourceService.updatePatient(patientRepresentation, patientId);
@@ -47,7 +46,7 @@ public class PatientSettingsResource extends ServerResource {
     }
 
     @Delete("json")
-    public void deletePatient() throws AuthorizationException {
+    public void deletePatient() {
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
             PatientSettingsResourceService.deletePatient(patientId);

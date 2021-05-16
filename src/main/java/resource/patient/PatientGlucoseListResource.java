@@ -11,7 +11,6 @@ import representation.GlucoseRepresentation;
 import resource.ResourceUtils;
 import security.Shield;
 import service.PatientGlucoseListResourceService;
-import service.PatientGlucoseResourceService;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,7 +37,7 @@ public class PatientGlucoseListResource extends ServerResource {
     }
 
     @Post("json")
-    public GlucoseRepresentation add(GlucoseRepresentation glucoseRepresentationIn) throws AuthorizationException {
+    public GlucoseRepresentation add(GlucoseRepresentation glucoseRepresentationIn) {
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
             return PatientGlucoseListResourceService.getGlucoseRepresentation(glucoseRepresentationIn, patientId);

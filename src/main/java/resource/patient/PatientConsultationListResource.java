@@ -1,6 +1,5 @@
 package resource.patient;
 
-import exception.AuthorizationException;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.Get;
@@ -11,7 +10,6 @@ import representation.ConsultationRepresentation;
 import resource.ResourceUtils;
 import security.Shield;
 import service.PatientConsultationListResourceService;
-import service.PatientConsultationResourceService;
 
 import java.util.List;
 import java.util.logging.Logger;

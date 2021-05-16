@@ -1,6 +1,5 @@
 package resource.patient;
 
-import exception.AuthorizationException;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.Get;
@@ -9,9 +8,7 @@ import org.restlet.resource.ServerResource;
 import representation.ConsultationRepresentation;
 import resource.ResourceUtils;
 import security.Shield;
-import service.PatientCarbResourceService;
 import service.PatientConsultationResourceService;
-import service.PatientGlucoseListResourceService;
 
 import java.util.logging.Logger;
 
@@ -31,7 +28,7 @@ public class PatientConsultationResource extends ServerResource {
     }
 
     @Get("json")
-    public ConsultationRepresentation getConsultation() throws AuthorizationException {
+    public ConsultationRepresentation getConsultation() {
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
             return PatientConsultationResourceService.getConsultation(patientId, consultationId);
