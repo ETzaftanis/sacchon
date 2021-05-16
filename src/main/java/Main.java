@@ -18,9 +18,9 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception {
 
-//        EntityManager em = JpaUtil.getEntityManager();
-//        LOGGER.info("Sacchon app starting");
-//        em.close();
+        EntityManager em = JpaUtil.getEntityManager();
+        LOGGER.info("Sacchon app starting");
+        em.close();
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 8080);
         c.getDefaultHost().attach("/v1", new Main());

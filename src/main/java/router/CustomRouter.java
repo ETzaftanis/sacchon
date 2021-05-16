@@ -20,7 +20,7 @@ public class CustomRouter {
         router.attach("/ping", PingServerResource.class);
         router.attach("/login", LogInResource.class);
 
-        //router.attach("/register", RegisterResource.class);
+        router.attach("/register", RegisterResource.class);
 
         return router;
 
